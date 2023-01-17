@@ -15,7 +15,7 @@
 
 # Configuration for alex - https://github.com/get-alex/alex
 
-name: CORTX inclusive words scan
+name: Management-Controller inclusive words scan
 on:
   # Trigger the workflow on pull request labeled as cla-signed
   # and synchronize for the main branch

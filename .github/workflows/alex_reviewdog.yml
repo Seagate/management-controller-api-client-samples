@@ -42,7 +42,7 @@ jobs:
         run: |
           sudo chown -R root:root $GITHUB_WORKSPACE
       
-      - uses: seagate/action-alex@v1
+      - uses: seagate/action-alex@v2
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           filter_mode: added

@@ -17,58 +17,117 @@
 # For any questions about this software or licensing, please email
 # opensource@seagate.com
 
-from main import MCClient
-import logging as log
-from argparse import ArgumentParser, ArgumentDefaultsHelpFormatter
+from lxml import etree
+from error import MCConnectionError, MCAuthenticationError
+import requests
+import six
+import hashlib
+import logging as LOG
 
-debug = False
-extra_debug = False
 
+class MCClient(object):
+    def __init__(self, host, username, password, protocol='https', port=443, ssl_verify=False):
+        self._mgmt_ip_addrs = list(map(str.strip, host.split(',')))
+        self._port = port
+        self._username = username
+        self._password = password
+        self._protocol = protocol
+        self._session_key = None
+        self.ssl_verify = ssl_verify
+        self._set_host(self._mgmt_ip_addrs[0])
+        self._luns_in_use_by_host = {}
+        if not ssl_verify:
+            import urllib3
+            urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
-def main():
-    global port, password, username, debug, ip_addrs, protocol
-    try:
-        parser = ArgumentParser(formatter_class=ArgumentDefaultsHelpFormatter)
-        parser.add_argument("-u", "--user", required = True, help="Username of MC")
-        parser.add_argument("-p", "--pwd", required = True, help="Password of specified user")
-        parser.add_argument("-d", "--debug", action="store_true", help="Enable Debug output")
-        parser.add_argument("-s", "--ssl", action="store_true", help="Enable SSL verification")
-        parser.add_argument("-i", "--ip", required = True, help="Enable Debug output")
-        parser.add_argument("-P", "--port", type=int, default=443, help="Specify the port")
-        parser.add_argument("-x", "--protocol", default="https", help="Specify the protocol")
-        args = parser.parse_args()
+    def _set_host(self, ip_addr):
+        self._curr_ip_addr = ip_addr
+        self._base_url = "%s://%s:%d/api" % (self._protocol,
+                                             ip_addr, self._port)
 
-        password = args.pwd
-        username = args.user
-        debug = args.debug
-        ip_addrs = args.ip
-        port = args.port
-        protocol = args.protocol
+    def _get_auth_token(self, xml):
+        """Parse an XML authentication reply to extract the session key."""
+        self._session_key = None
+        try:
+            tree = etree.XML(xml)
+            # The 'return-code' property is not valid in this context, so we
+            # we check value of 'response-type-numeric' (0 => Success)
+            rtn = tree.findtext(".//PROPERTY[@name='response-type-numeric']")
+            session_key = tree.findtext(".//PROPERTY[@name='response']")
+            if rtn == '0':
+                self._session_key = session_key
+        except Exception as e:
+            msg = "Cannot parse session key: %s" % e.msg
+            raise MCConnectionError(message=msg)
 
-    except Exception as e:
-        log.exception('Exception in string format operation')
-        
+    def login(self):
+        if self._session_key is None:
+            return self.session_login()
 
-    if debug:
-        log.getLogger().setLevel(log.DEBUG)
+    def session_login(self):
+        """Authenticates the service on the device.
 
-        from http.client import HTTPConnection
-        HTTPConnection.debuglevel = 1
+        Tries all the IP addrs listed in the san_ip parameter
+        until a working one is found or the list is exhausted.
+        """
 
-        log.getLogger("requests.packages.urllib3").setLevel(log.DEBUG)
-        log.getLogger("requests.packages.urllib3").propagate = True
-    else:
-        log.getLogger().setLevel(log.INFO)
+        try:
+            self._get_session_key()
+            LOG.debug("Logged in to array at %s (session %s)",
+                      self._base_url, self._session_key)
+            return
+        except MCConnectionError:
+            not_responding = self._curr_ip_addr
+            LOG.exception('session_login failed to connect to %s',
+                          self._curr_ip_addr)
+            # Loop through the remaining management addresses
+            # to find one that's up.
+            for host in self._mgmt_ip_addrs:
+                if host is not_responding:
+                    continue
+                self._set_host(host)
+                try:
+                    self._get_session_key()
+                    return
+                except MCConnectionError:
+                    LOG.error('Failed to connect to %s',
+                              self._curr_ip_addr)
+                    continue
+        raise MCConnectionError(
+            message="Failed to log in to management controller")
 
-    print ("Trying IP addresses {} ...".format(ip_addrs))
+    def _get_session_key(self):
+        """Retrieve a session key from the array."""
 
-    login(ip_addrs, username, password)
+        self._session_key = None
+        hash_ = "%s_%s" % (self._username, self._password)
+        if six.PY3:
+            hash_ = hash_.encode('utf-8')
+        hash_ = hashlib.md5(hash_)
+        digest = hash_.hexdigest()
+        basic_auth = requests.auth.HTTPBasicAuth(
+            self._username, self._password)
+        url = self._base_url + "/login/" + digest
+        # XXX url = self._base_url + '/login/ff719743d4f5b91a936e9c540c919e0632dbf884114dc0040a5e1f291edf15e3' # XXX
+        try:
+            LOG.debug("Attempting to log in to %s", url)
+            if self._protocol == 'https':
+                xml = requests.get(url, verify=self.ssl_verify, timeout=30,
+                                   auth=(self._username, self._password))
+            else:
+                xml = requests.get(url, verify=self.ssl_verify, timeout=30)
 
-def login(ip_addrs,username,password):
-    # Log in to the array
-    if debug:
-        print('password is %s' % password)
-    client = MCClient(ip_addrs, username, password, protocol, port, False)
-    client.login()
+        except requests.exceptions.RequestException:
+            msg = "Failed to obtain MC session key"
+            LOG.exception(msg)
+            raise MCConnectionError(message=msg)
 
-main()
+        LOG.debug("xml response to login request: \n%s",
+                  xml.text.encode('UTF-8'))
+
+        self._get_auth_token(xml.text.encode('utf8'))
+        LOG.debug("session key = %s", self._session_key)
+        print("Session Key = " + self._session_key + "\n")
+        if self._session_key is None:
+            raise MCAuthenticationError(
+                message="Failed to get session key")

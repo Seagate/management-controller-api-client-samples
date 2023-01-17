@@ -6,7 +6,7 @@ jobs:
   dispatch:
     strategy:
       matrix:
-        repo: ['Seagate/cortx']
+        repo: ['Seagate/Management-Controller']
     runs-on: ubuntu-latest
     steps:
       - name: Repository Dispatch

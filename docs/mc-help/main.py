@@ -48,7 +48,7 @@ def main():
     except Exception as e:
         log.exception('Exception in string format operation')
         
-
+# Master Slave
     if debug:
         log.getLogger().setLevel(log.DEBUG)
 

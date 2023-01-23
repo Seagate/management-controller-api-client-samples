@@ -36,14 +36,14 @@ class Login:
         '''
         request_encryption_keys = {
             "api": {
-                "base64": MCClient(ip_addrs, username, password, protocol, port, ssl, request, encrytion),
-                "sha256": MCClient(ip_addrs, username, password, protocol, port, ssl, request, encrytion),
-                "base64+sha256": MCClient(ip_addrs, username, password, protocol, port, ssl, request, encrytion)
+                "base64": MCClient(ip_addrs, username, password, protocol, port, ssl),
+                "sha256": MCClient(ip_addrs, username, password, protocol, port, ssl),
+                "base64+sha256": MCClient(ip_addrs, username, password, protocol, port, ssl)
             },
             "rest": {
-                "base64": MCClient(ip_addrs, username, password, protocol, port, ssl, request, encrytion),
-                "sha256": MCClient(ip_addrs, username, password, protocol, port, ssl, request, encrytion),
-                "base64+sha256": MCClient(ip_addrs, username, password, protocol, port, ssl, request, encrytion)
+                "base64": MCClient(ip_addrs, username, password, protocol, port, ssl),
+                "sha256": MCClient(ip_addrs, username, password, protocol, port, ssl),
+                "base64+sha256": MCClient(ip_addrs, username, password, protocol, port, ssl)
             }
         }
         try:

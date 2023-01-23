@@ -26,7 +26,7 @@ import logging as LOG
 
 
 class MCClient(object):
-    def __init__(self, host, username, password, protocol, port, ssl_verify, request, encryption):
+    def __init__(self, host, username, password, protocol, port, ssl_verify):
         self._mgmt_ip_addrs = host
         self._port = port
         self._username = username

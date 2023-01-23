@@ -255,8 +255,7 @@ class Base64SHA256Login:
 
     Methods
     -------
-    __createHeader: This function does Base64 encoding of username and password provided by user
-    __createHeader(): This function does SHA256 encoding of username and password 
+    __createHeader(): This function does Base64+SHA256 encoding of username and password 
                         provided by user
     __getSessionKey(response): This function reads the response and gets session key  
     login() : This function creates and performs login request
@@ -572,8 +571,7 @@ class RESTBase64SHA256Login:
 
     Methods
     -------
-    __createHeader: This function does Base64 encoding of username and password provided by user
-    __createHeader(): This function does SHA256 encoding of username and password 
+    __createHeader(): This function does Base64+SHA256 encoding of username and password 
                         provided by user
     __getSessionKey(response): This function reads the response and gets session key  
     login() : This function creates and performs login request

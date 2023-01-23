@@ -17,49 +17,82 @@
 # For any questions about this software or licensing, please email
 # opensource@seagate.com
 
-from loginFactory import MCClient
+from loginFactory import Base64Login, SHA256Login, Base64SHA256Login, RESTBase64Login, RESTSHA256Login, RESTBase64SHA256Login
 import logging as log
 from argparse import ArgumentParser, ArgumentDefaultsHelpFormatter
+from const import RequestType, EncodingType
+
+
+'''
+A class to send login request on the basis of specified request_type and encoding_type.
+
+Parameters
+----------
+username : username of the user
+password : password of the user
+protocol : protocol to be followed for request (Http or Https)
+ip_addrs : Ip address of the array
+port : port specified by the user
+ssl_verify : Boolean value (True or False) for verification of SSL certificates
+
+Methods
+-------
+login() : This function sends login request
+'''
 
 
 class Login:
     '''
-    Send login request on the basis of specified request_type and encryption_type. 
+    This function sends login request
+
+    :returns None
+
     '''
     @staticmethod
     def login():
         '''
-        request_encryption_keys: Two Level nested map
+        request_encoding_keys: Two Level nested map
         First Level Storage : API / REST
         Inner Level(leaf) backend : BASE64 / SHA256 / BASE64+SHA256
-        :returns: None
         '''
-        request_encryption_keys = {
-            "api": {
-                "base64": MCClient(ip_addrs, username, password, protocol, port, ssl),
-                "sha256": MCClient(ip_addrs, username, password, protocol, port, ssl),
-                "base64+sha256": MCClient(ip_addrs, username, password, protocol, port, ssl)
+        request_encoding_keys = {
+            RequestType.API.value: {
+                EncodingType.BASE64.value: Base64Login(username, password, protocol, ip_addrs, port, ssl),
+                EncodingType.SHA256.value: SHA256Login(username, password, protocol, ip_addrs, port, ssl),
+                EncodingType.BASE64_SHA256.value: Base64SHA256Login(
+                    username, password, protocol, ip_addrs, port, ssl)
             },
-            "rest": {
-                "base64": MCClient(ip_addrs, username, password, protocol, port, ssl),
-                "sha256": MCClient(ip_addrs, username, password, protocol, port, ssl),
-                "base64+sha256": MCClient(ip_addrs, username, password, protocol, port, ssl)
+            RequestType.REST.value: {
+                EncodingType.BASE64.value: RESTBase64Login(username, password, protocol, ip_addrs, port, ssl),
+                EncodingType.SHA256.value: RESTSHA256Login(username, password, protocol, ip_addrs, port, ssl),
+                EncodingType.BASE64_SHA256.value: RESTBase64SHA256Login(
+                    username, password, protocol, ip_addrs, port, ssl)
             }
         }
         try:
-            # Reading request_type and encryption_type for logging
-            client = request_encryption_keys[request][encrytion]
-            print("Logging using", request, "with", encrytion, "encryption")
+            # Reading request_type and encoding_type for logging
+            print(RequestType.REST)
+            client = request_encoding_keys[request][encoding]
+            print("Logging using", RequestType(request).name,
+                  "with", EncodingType(encoding).name, "encoding")
             client.login()
         except Exception as e:
             print('ERROR: %s' % e)
         return
 
 
+'''
+This function prints the mini help section on error
+
+:returns None
+
+'''
+
+
 def usage():
     print('usage: [-h] -u USER -p PWD [-d] [-s] -i IP [-P PORT] [-x PROTOCOL]')
     print(' Arguments: ')
-    print('   -h              show this help message and exit')
+    print('   -h              Show this help message and exit')
     print('   -u USER         Username of MC (default: None)')
     print('   -p PWD          Password of specified user (default: None)')
     print('   -d              Enable Debug output (default: False)')
@@ -68,11 +101,11 @@ def usage():
     print('   -P PORT         Specify the port (default: 443)')
     print('   -x PROTOCOL     Specify the protocol (default: https)')
     print('   -r TYPE         Specify the type of request(API/REST) (default: API)')
-    print('   -e ENCRYPTION   Specify encryption type(base64/sha256/base64+sha256) (default: base64)')
+    print('   -e ENCODING     Specify encoding type(base64/sha256/base64+sha256) (default: base64)')
 
 
 def main():
-    global username, password, ip_addrs, debug, ssl, port, protocol, request, encrytion
+    global username, password, ip_addrs, debug, ssl, port, protocol, request, encoding
     try:
         parser = ArgumentParser(formatter_class=ArgumentDefaultsHelpFormatter)
         parser.add_argument("-u", "--user", required=True,
@@ -89,10 +122,10 @@ def main():
                             default=443, help="Specify the port")
         parser.add_argument("-x", "--protocol",
                             default="https", help="Specify the protocol")
-        parser.add_argument("-r", "--request", default="api",
-                            choices=["api", "rest"], help="Specify the type of request")
-        parser.add_argument("-e", "--encryption", default="base64", choices=[
-                            "base64", "sha256", "base64+sha256"], help="Specify encryption type")
+        parser.add_argument("-r", "--request", default=1, type=int,
+                            choices=[1, 2], help="Specify the request type: 1 for API, 2 for REST")
+        parser.add_argument("-e", "--encoding", default=1, type=int, choices=[
+                            1, 2, 3], help="Specify the encoding type: 1 for base64, 2 for sha256, 3 for base64+sha256")
         args = parser.parse_args()
 
         password = args.pwd
@@ -103,7 +136,7 @@ def main():
         protocol = args.protocol
         ssl = args.ssl
         request = args.request
-        encrytion = args.encryption
+        encoding = args.encoding
 
     except Exception as e:
         usage()
@@ -119,8 +152,7 @@ def main():
         log.getLogger().setLevel(log.INFO)
 
     print("Trying IP addresses {} ...".format(ip_addrs))
-    obj = Login()
-    obj.login()
+    Login().login()
 
 
 main()

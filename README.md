@@ -7,8 +7,8 @@ The purpose of this repository is to keep the scripts, tools, and other configur
 
 ```
 .
+.
 ├── CODE_OF_CONDUCT.md
-├── CONTRIBUTING.md
 ├── LICENSE
 ├── mc-reference-scripts
 │   ├── const.py

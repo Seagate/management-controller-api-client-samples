@@ -10,8 +10,6 @@ The purpose of this repository is to keep the scripts, tools, and other configur
 ├── docs
 │   └── mc-help
 │       ├── const.py
-│       ├── error.py
-│       ├── exception.py
 │       ├── loginFactory.py
 │       ├── login.py
 ├── LICENSE

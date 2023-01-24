@@ -33,6 +33,6 @@ Here our community is providing the very useful scripts for Management Controlle
 ## List of scripts in this repository:
 Below you can find the list of all scripts which are very useful for the developers, so dive in:
 
-### [APIs](./docs/mc-help/README.md)
+### [APIs](./mc-reference-scripts/README.md)
 
 * Login API

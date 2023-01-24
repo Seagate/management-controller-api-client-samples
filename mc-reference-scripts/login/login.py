@@ -115,7 +115,7 @@ def main():
         encoding = args.encoding
 
     except Exception as e:
-        print('ERROR: %s' % e)
+        print('ERROR: %s' %e)
 
     if debug:
         log.getLogger().setLevel(log.DEBUG)

@@ -66,7 +66,7 @@ class Login:
                 EncodingType.BASE64.value: RESTBase64Login(username, password, ip_addrs, port, protocol, ssl),
                 EncodingType.SHA256.value: RESTSHA256Login(username, password, ip_addrs, port, protocol, ssl),
                 EncodingType.BASE64_SHA256.value: RESTBase64SHA256Login(
-                    username, password, protocol, ip_addrs, port, ssl)
+                    username, password, ip_addrs, port, protocol, ssl)
             }
         }
         try:

@@ -57,14 +57,14 @@ class Login:
         '''
         request_encoding_keys = {
             RequestType.API.value: {
-                EncodingType.BASE64.value: Base64Login(username, password, protocol, ip_addrs, port, ssl),
-                EncodingType.SHA256.value: SHA256Login(username, password, protocol, ip_addrs, port, ssl),
+                EncodingType.BASE64.value: Base64Login(username, password, ip_addrs, port, protocol, ssl),
+                EncodingType.SHA256.value: SHA256Login(username, password, ip_addrs, port, protocol, ssl),
                 EncodingType.BASE64_SHA256.value: Base64SHA256Login(
                     username, password, protocol, ip_addrs, port, ssl)
             },
             RequestType.REST.value: {
-                EncodingType.BASE64.value: RESTBase64Login(username, password, protocol, ip_addrs, port, ssl),
-                EncodingType.SHA256.value: RESTSHA256Login(username, password, protocol, ip_addrs, port, ssl),
+                EncodingType.BASE64.value: RESTBase64Login(username, password, ip_addrs, port, protocol, ssl),
+                EncodingType.SHA256.value: RESTSHA256Login(username, password, ip_addrs, port, protocol, ssl),
                 EncodingType.BASE64_SHA256.value: RESTBase64SHA256Login(
                     username, password, protocol, ip_addrs, port, ssl)
             }

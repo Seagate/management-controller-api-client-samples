@@ -75,12 +75,12 @@ Mandatory parameters
 	password    : Password of the user
 	host        : IP address of the array
 Optional parameters
-  port        : Port on which request should be sent
-                  If not passed, by default port is set to 443.
+ 	port        : Port on which request should be sent
+                      If not passed, by default port is set to 443.
 	protocol    : Protocol to be followed for request (http or https)
-			      If not passed, by default protocol is set to https.
+		      If not passed, by default protocol is set to https.
 	ssl_verify  : Boolean value (True or False) for verification of SSL certificates
-				  If not passed, by default ssl_verify is set to False.
+		      If not passed, by default ssl_verify is set to False.
 ```
 
 <b> NOTE :</b> <i>"Other Classes can be used in similar manner" </i>

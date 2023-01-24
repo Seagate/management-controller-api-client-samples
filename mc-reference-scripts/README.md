@@ -70,6 +70,28 @@ obj2 = Base64Login("username", "password", "127.0.0.0", 443,"https", False)
 sessionKey = obj2.login()
 ```
 
+If any mandatory parameter is not passed then it will throw error
+```python3
+from LoginFactory import 
+
+Base64Login obj = Base64Login("username", "127.0.0.0")
+sessionKey = obj.login()
+```
+```
+Output: TypeError: __init__() missing 1 required positional argument 
+```
+
+If user passes invalid parameters then it will throw error as Authentication Unsuccessful
+```python3
+from LoginFactory import 
+
+Base64Login obj = Base64Login("username", "password@123", "127.0.0.0")
+sessionKey = obj.login()
+```
+```
+Output: Authentication Unsuccessful
+```
+
 Parameters to be passed while creating object of Base64Login -
 
 ```

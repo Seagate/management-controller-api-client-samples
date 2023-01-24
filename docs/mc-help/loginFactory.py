@@ -50,7 +50,7 @@ class Base64Login:
     login() : This function creates and performs login request
     '''
 
-    def __init__(self, username, password, host, port=443, protocol="https", ssl_verify=False):
+    def __init__(self, username, password, host, port, protocol = "https" , ssl_verify = False):
         '''
         Constructs all the necessary attributes for the login request object
 
@@ -67,8 +67,12 @@ class Base64Login:
         self.__password = password
         self._protocol = protocol
         self.__ssl_verify = ssl_verify
+        self.__sessionKey =  None
 
     def _set_host(self, ip_addr):
+        '''
+        
+        '''
         self.__url = "%s://%s:%d/api/login/" % (self._protocol,
                                                 ip_addr, self.__port)
 
@@ -94,14 +98,12 @@ class Base64Login:
         :returns sessionKey: Session key generated after login of user
         '''
         xmlDoc = xml.dom.minidom.parseString(response.read())
-        loginObjs = xmlDoc.getElementsByTagName('OBJECT')
         loginProps = xmlDoc.getElementsByTagName('PROPERTY')
-        sessionKey = ''
         for lProp in loginProps:
             name = lProp.getAttribute('name')
             if name == 'response':
-                sessionKey = lProp.firstChild.data
-        return sessionKey
+                self.__sessionKey = lProp.firstChild.data
+        return self.__sessionKey
 
     def login(self):
         '''
@@ -117,18 +119,19 @@ class Base64Login:
             response = urllib.request.urlopen(req, context=context)
         else:
             response = urllib.request.urlopen(self.__url)
-        sessionKey = ''
-
+        
         try:
-            sessionKey = self.__getSessionKey(response)
+            self.__sessionKey = self.__getSessionKey(response)
+            if self.__sessionKey == "Authentication Unsuccessful":
+                raise Exception("Authentication Unsuccessful")
             print("Logged in to array : ", self.__host)
         except urllib.error.HTTPError as HTTPError:
             print(HTTPError)
         except urllib.error.URLError as URLError:
             print(URLError)
-        except ... as err:
+        except Exception as err:
             print(err)
-        return sessionKey
+        return self.__sessionKey
 
 
 class SHA256Login:
@@ -154,7 +157,7 @@ class SHA256Login:
     login() : This function creates and performs login request
     '''
 
-    def __init__(self, username, password, host, port=443, protocol="https", ssl_verify=False):
+    def __init__(self, username, password, host, port, protocol = "https" , ssl_verify = False):
         '''
         Constructs all the necessary attributes for the login request object
 
@@ -166,15 +169,16 @@ class SHA256Login:
         :param : ssl_verify : Boolean value (True or False) for verification of SSL certificates
         '''
         self.__host = host
-        self._port = port
+        self.__port = port
         self.__username = username
         self.__password = password
         self._protocol = protocol
         self.__ssl_verify = ssl_verify
+        self.__sessionKey = None
 
     def _set_host(self, ip_addr):
         self.__tmpurl = "%s://%s:%d/api/login/" % (self._protocol,
-                                                   ip_addr, self._port)
+                                                   ip_addr, self.__port)
 
     def __createHeader(self):
         '''
@@ -186,7 +190,6 @@ class SHA256Login:
         m = hashlib.sha256()
         m.update(userPass)
         encoded = m.hexdigest()
-        # print("SHA256 = " + encoded + "\n")
         self.__url = self.__tmpurl + encoded
 
     def __getSessionKey(self, response):
@@ -201,16 +204,14 @@ class SHA256Login:
         '''
 
         xmlDoc = xml.dom.minidom.parseString(response.read())
-        loginObjs = xmlDoc.getElementsByTagName('OBJECT')
         loginProps = xmlDoc.getElementsByTagName('PROPERTY')
-        sessionKey = ''
 
         for lProp in loginProps:
             name = lProp.getAttribute('name')
             if name == 'response':
-                sessionKey = lProp.firstChild.data
+                self.__sessionKey = lProp.firstChild.data
 
-        return sessionKey
+        return self.__sessionKey
 
     def login(self):
         '''
@@ -225,17 +226,20 @@ class SHA256Login:
             response = urllib.request.urlopen(self.__url, context=context)
         else:
             response = urllib.request.urlopen(self.__url)
-        sessionKey = ''
+
         try:
-            sessionKey = self.__getSessionKey(response)
+            self.__sessionKey = self.__getSessionKey(response)
+            if self.__sessionKey == "Authentication Unsuccessful":
+                raise Exception("Authentication Unsuccessful")
             print("Logged in to array : ", self.__host)
         except urllib.error.HTTPError as HTTPError:
             print(HTTPError)
         except urllib.error.URLError as URLError:
             print(URLError)
-        except ... as err:
+        except Exception as err:
             print(err)
-        return sessionKey
+        return self.__sessionKey
+
 
 
 class Base64SHA256Login:
@@ -261,7 +265,7 @@ class Base64SHA256Login:
     login() : This function creates and performs login request
     '''
 
-    def __init__(self, username, password, host, port=443, protocol="https", ssl_verify=False):
+    def __init__(self, username, password, host, port = 443, protocol = "https" , ssl_verify = False):
         '''
         Constructs all the necessary attributes for the login request object
 
@@ -274,15 +278,16 @@ class Base64SHA256Login:
         '''
 
         self.__host = host
-        self._port = port
+        self.__port = port
         self.__username = username
         self.__password = password
         self._protocol = protocol
         self.__ssl_verify = ssl_verify
+        self.__sessionKey = None
 
     def _set_host(self, ip_addr):
         self.__tmpurl = "%s://%s:%d/api/login/" % (self._protocol,
-                                                   ip_addr, self._port)
+                                                   ip_addr, self.__port)
 
     def __createHeader(self):
         '''
@@ -295,12 +300,12 @@ class Base64SHA256Login:
         m = hashlib.sha256()
         m.update(userPass)
         encoded = m.hexdigest()
-        # print("SHA256 = " + encoded + "\n")
         self.__url = self.__tmpurl + encoded
         temp_string = bytes(self.__username + ':' + self.__password, "utf-8")
         encodedBytes = base64.b64encode(temp_string)
         auth_string = str(encodedBytes, "utf-8")
         return auth_string
+       
 
     def __getSessionKey(self, response):
         '''
@@ -314,16 +319,15 @@ class Base64SHA256Login:
         '''
 
         xmlDoc = xml.dom.minidom.parseString(response.read())
-        loginObjs = xmlDoc.getElementsByTagName('OBJECT')
         loginProps = xmlDoc.getElementsByTagName('PROPERTY')
         sessionKey = ''
 
         for lProp in loginProps:
             name = lProp.getAttribute('name')
             if name == 'response':
-                sessionKey = lProp.firstChild.data
+                self.__sessionKey = lProp.firstChild.data
 
-        return sessionKey
+        return self.__sessionKey
 
     def login(self):
         '''
@@ -341,17 +345,19 @@ class Base64SHA256Login:
             response = urllib.request.urlopen(req, context=context)
         else:
             response = urllib.request.urlopen(req)
-        sessionKey = ''
         try:
-            sessionKey = self.__getSessionKey(response)
+            self.__sessionKey = self.__getSessionKey(response)
+            if self.__sessionKey == "Authentication Unsuccessful":
+                raise Exception("Authentication Unsuccessful")
             print("Logged in to array : ", self.__host)
         except urllib.error.HTTPError as HTTPError:
             print(HTTPError)
         except urllib.error.URLError as URLError:
             print(URLError)
-        except ... as err:
+        except Exception as err:
             print(err)
-        return sessionKey
+        return self.__sessionKey
+
 
 
 class RESTBase64Login:
@@ -376,7 +382,7 @@ class RESTBase64Login:
     login() : This function creates and performs login request
     '''
 
-    def __init__(self, username, password, host, port=443, protocol="https", ssl_verify=False):
+    def __init__(self, username, password, host, port, protocol = "https" , ssl_verify = False):
         '''
         Constructs all the necessary attributes for the login request object
 
@@ -389,15 +395,16 @@ class RESTBase64Login:
         '''
 
         self.__host = host
-        self._port = port
+        self.__port = port
         self.__username = username
         self.__password = password
         self._protocol = protocol
         self.__ssl_verify = ssl_verify
+        self.__sessionKey = None
 
     def _set_host(self, ip_addr):
         self.__url = "%s://%s:%d/rest/v1/login/" % (self._protocol,
-                                                    ip_addr, self._port)
+                                                    ip_addr, self.__port)
 
     def __createHeader(self):
         '''
@@ -420,8 +427,8 @@ class RESTBase64Login:
         '''
         # print sessionKey
         cred = json.loads(response.read().decode('utf-8'))
-        sessionKey = cred['status'][0]['response']
-        return sessionKey
+        self.__sessionKey = cred['status'][0]['response']
+        return self.__sessionKey
 
     def login(self):
         '''
@@ -440,23 +447,25 @@ class RESTBase64Login:
             response = urllib.request.urlopen(req, context=context)
         else:
             response = urllib.request.urlopen(req)
-        sessionKey = ''
         try:
-            sessionKey = self.__getSessionKey(response)
+            self.__sessionKey = self.__getSessionKey(response)
+            if self.__sessionKey == "Authentication Unsuccessful":
+                raise Exception("Authentication Unsuccessful")
             print("Logged in to array : ", self.__host)
         except urllib.error.HTTPError as HTTPError:
             print(HTTPError)
         except urllib.error.URLError as URLError:
             print(URLError)
-        except ... as err:
+        except Exception as err:
             print(err)
-        return sessionKey
+        return self.__sessionKey
+
 
 
 class RESTSHA256Login:
     '''
     A class to perform login operation using SHA256 encoding for REST Api
-
+    
     Attributes
     ----------
     __username : username of the user
@@ -475,33 +484,34 @@ class RESTSHA256Login:
     login() : This function creates and performs login request
     '''
 
-    def __init__(self, username, password, host, port=443, protocol="https", ssl_verify=False):
+    def __init__(self, username, password, host, port, protocol = "https" , ssl_verify = False):
         '''
         Constructs all the necessary attributes for the login request object
-
+        
         :param username : username of the user
         :param password : password of the user
         :param protocol : protocol to be followed for request (Http or Https)
         :param host : Ip address of the array
         :param port : port specified by the user
         :param : ssl_verify : Boolean value (True or False) for verification of SSL certificates
-        '''
+        '''  
 
         self.__host = host
-        self._port = port
+        self.__port = port
         self.__username = username
         self.__password = password
         self._protocol = protocol
         self.__ssl_verify = ssl_verify
+        self.__sessionKey = None
 
     def _set_host(self, ip_addr):
         self.__tmpurl = "%s://%s:%d/rest/v1/login/" % (self._protocol,
-                                                       ip_addr, self._port)
+                                                   ip_addr, self.__port)
 
     def __createHeader(self):
         '''
         This function does SHA256 encoding of username and password provided by user
-
+        
         :returns : None
 
         '''
@@ -510,23 +520,24 @@ class RESTSHA256Login:
         m.update(userPass)
         encoded = m.hexdigest()
         self.__url = self.__tmpurl + encoded
-
+    
     def __getSessionKey(self, response):
+        
         '''
         This function reads the response and gets session key  
-
+        
         :param response: response of the request
         :returns sessionKey: Session key generated after login of user
         '''
-        # print sessionKey
         cred = json.loads(response.read().decode('utf-8'))
-        sessionKey = cred['status'][0]['response']
-        return sessionKey
+        self.__sessionKey = cred['status'][0]['response']
+        return self.__sessionKey
 
     def login(self):
+
         '''
         This function creates and performs login request
-
+        
         :returns sessionKey: Session key generated after login of user
 
         '''
@@ -540,23 +551,24 @@ class RESTSHA256Login:
             response = urllib.request.urlopen(req, context=context)
         else:
             response = urllib.request.urlopen(req)
-        sessionKey = ''
         try:
-            sessionKey = self.__getSessionKey(response)
+            self.__sessionKey = self.__getSessionKey(response)
+            if self.__sessionKey == "Authentication Unsuccessful":
+                raise Exception("Authentication Unsuccessful")
             print("Logged in to array : ", self.__host)
         except urllib.error.HTTPError as HTTPError:
             print(HTTPError)
         except urllib.error.URLError as URLError:
             print(URLError)
-        except ... as err:
+        except Exception as err:
             print(err)
-        return sessionKey
+        return self.__sessionKey
 
 
 class RESTBase64SHA256Login:
     '''
     A class to perform login operation using Base64+SHA256 encoding for REST api
-
+    
     Attributes
     ----------
     __username : username of the user
@@ -575,33 +587,35 @@ class RESTBase64SHA256Login:
     login() : This function creates and performs login request
     '''
 
-    def __init__(self, username, password, host, port=443, protocol="https", ssl_verify=False):
+    def __init__(self, username, password, host, port, protocol = "https" , ssl_verify = False):
         '''
         Constructs all the necessary attributes for the login request object
-
+        
         :param username : username of the user
         :param password : password of the user
         :param protocol : protocol to be followed for request (Http or Https)
         :param host : Ip address of the array
         :param port : port specified by the user
         :param : ssl_verify : Boolean value (True or False) for verification of SSL certificates
-        '''
+        '''  
 
         self.__host = host
-        self._port = port
+        self.__port = port
         self.__username = username
         self.__password = password
         self._protocol = protocol
         self.__ssl_verify = ssl_verify
+        self.__sessionKey = None
 
     def _set_host(self, ip_addr):
         self.__tmpurl = "%s://%s:%d/rest/v1/login/" % (self._protocol,
-                                                       ip_addr, self._port)
-
+                                                   ip_addr, self.__port)
+        
     def __createHeader(self):
+        
         '''
         This function does Base64+SHA256 encoding of username and password provided by user
-
+        
         :returns auth_string: Authentication key generated by Base64 encoding of username and password 
         '''
         userPass = bytes(self.__username + "_" + self.__password, "utf-8")
@@ -614,22 +628,25 @@ class RESTBase64SHA256Login:
         auth_string = str(encodedBytes, "utf-8")
         return auth_string
 
+
     def __getSessionKey(self, response):
+        
         '''
         This function reads the response and gets session key  
-
+        
         :param response: response of the request
         :returns sessionKey: Session key generated after login of user
         '''
         # print sessionKey
         cred = json.loads(response.read().decode('utf-8'))
-        sessionKey = cred['status'][0]['response']
-        return sessionKey
+        self.__sessionKey = cred['status'][0]['response']
+        return self.__sessionKey
 
     def login(self):
+
         '''
         This function creates and performs login request
-
+        
         :returns sessionKey: Session key generated after successful login of user
         '''
         self._set_host(self.__host)
@@ -637,20 +654,21 @@ class RESTBase64SHA256Login:
         req = urllib.request.Request(self.__url)
         req.add_header('Authorization', 'Basic ' + auth_string)
         req.add_header('dataType', 'json')
-
+    
         if not self.__ssl_verify:
             context = ssl._create_unverified_context()
             response = urllib.request.urlopen(req, context=context)
         else:
             response = urllib.request.urlopen(req)
-        sessionKey = ''
         try:
-            sessionKey = self.__getSessionKey(response)
+            self.__sessionKey = self.__getSessionKey(response)
+            if self.__sessionKey == "Authentication Unsuccessful":
+                raise Exception("Authentication Unsuccessful")
             print("Logged in to array : ", self.__host)
         except urllib.error.HTTPError as HTTPError:
             print(HTTPError)
         except urllib.error.URLError as URLError:
             print(URLError)
-        except ... as err:
+        except Exception as err:
             print(err)
-        return sessionKey
+        return self.__sessionKey

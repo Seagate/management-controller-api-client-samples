@@ -60,7 +60,7 @@ class Login:
                 EncodingType.BASE64.value: Base64Login(username, password, ip_addrs, port, protocol, ssl),
                 EncodingType.SHA256.value: SHA256Login(username, password, ip_addrs, port, protocol, ssl),
                 EncodingType.BASE64_SHA256.value: Base64SHA256Login(
-                    username, password, protocol, ip_addrs, port, ssl)
+                    username, password, ip_addrs, port, protocol, ssl)
             },
             RequestType.REST.value: {
                 EncodingType.BASE64.value: RESTBase64Login(username, password, ip_addrs, port, protocol, ssl),
@@ -71,7 +71,6 @@ class Login:
         }
         try:
             # Reading request_type and encoding_type for logging
-            print(RequestType.REST)
             client = request_encoding_keys[request][encoding]
             print("Logging using", RequestType(request).name,
                   "with", EncodingType(encoding).name, "encoding")

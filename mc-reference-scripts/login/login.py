@@ -17,9 +17,10 @@
 # For any questions about this software or licensing, please email
 # opensource@seagate.com
 
-from loginFactory import Base64Login, SHA256Login, Base64SHA256Login, RESTBase64Login, RESTSHA256Login, RESTBase64SHA256Login
 import logging as log
+from http.client import HTTPConnection
 from argparse import ArgumentParser, ArgumentDefaultsHelpFormatter
+from loginFactory import Base64Login, SHA256Login, Base64SHA256Login, RESTBase64Login, RESTSHA256Login, RESTBase64SHA256Login
 from const import RequestType, EncodingType
 
 
@@ -28,11 +29,11 @@ A class to send login request on the basis of specified request_type and encodin
 
 Parameters
 ----------
-username : username of the user
-password : password of the user
-protocol : protocol to be followed for request (Http or Https)
-ip_addrs : Ip address of the array
-port : port specified by the user
+USERNAME : username of the user
+PASSWORD : password of the user
+PROTOCOL : protocol to be followed for request (Http or Https)
+IP_ADDRS : Ip address of the array
+PORT : port specified by the user
 ssl_verify : Boolean value (True or False) for verification of SSL certificates
 
 Methods
@@ -57,31 +58,34 @@ class Login:
         '''
         request_encoding_keys = {
             RequestType.API.value: {
-                EncodingType.BASE64.value: Base64Login(username, password, ip_addrs, port, protocol, ssl),
-                EncodingType.SHA256.value: SHA256Login(username, password, ip_addrs, port, protocol, ssl),
+                EncodingType.BASE64.value: Base64Login(USERNAME, PASSWORD, IP_ADDRS,
+                    PORT, PROTOCOL, SSL),
+                EncodingType.SHA256.value: SHA256Login(USERNAME, PASSWORD, IP_ADDRS,
+                    PORT, PROTOCOL, SSL),
                 EncodingType.BASE64_SHA256.value: Base64SHA256Login(
-                    username, password, ip_addrs, port, protocol, ssl)
+                    USERNAME, PASSWORD, IP_ADDRS, PORT, PROTOCOL, SSL)
             },
             RequestType.REST.value: {
-                EncodingType.BASE64.value: RESTBase64Login(username, password, ip_addrs, port, protocol, ssl),
-                EncodingType.SHA256.value: RESTSHA256Login(username, password, ip_addrs, port, protocol, ssl),
+                EncodingType.BASE64.value: RESTBase64Login(USERNAME, PASSWORD, IP_ADDRS,
+                    PORT, PROTOCOL, SSL),
+                EncodingType.SHA256.value: RESTSHA256Login(USERNAME, PASSWORD, IP_ADDRS,
+                    PORT, PROTOCOL, SSL),
                 EncodingType.BASE64_SHA256.value: RESTBase64SHA256Login(
-                    username, password, ip_addrs, port, protocol, ssl)
+                    USERNAME, PASSWORD, IP_ADDRS, PORT, PROTOCOL, SSL)
             }
         }
         try:
             # Reading request_type and encoding_type for logging
-            client = request_encoding_keys[request][encoding]
-            print("Logging using", RequestType(request).name,
-                  "with", EncodingType(encoding).name, "encoding")
+            client = request_encoding_keys[REQUEST][ENCODING]
+            print("Logging using", RequestType(REQUEST).name,
+                  "with", EncodingType(ENCODING).name, "encoding")
             client.login()
-        except Exception as e:
-            print('ERROR: %s' % e)
-        return
+        except Exception as exp:
+            print('ERROR: %s' % exp)
 
 
 def main():
-    global username, password, ip_addrs, debug, ssl, port, protocol, request, encoding
+    global USERNAME, PASSWORD, IP_ADDRS, DEBUG, SSL, PORT, PROTOCOL, REQUEST, ENCODING
     try:
         parser = ArgumentParser(formatter_class=ArgumentDefaultsHelpFormatter)
         parser.add_argument("-u", "--user", required=True,
@@ -101,32 +105,31 @@ def main():
         parser.add_argument("-r", "--request", default="a", choices=[
                             "a", "r"], help="Specify the request type: a for API, r for REST")
         parser.add_argument("-e", "--encoding", default="b", choices=[
-                            "b", "s", "bs"], help="Specify the encoding type: b for base64, s for sha256, bs for base64+sha256")
+                            "b", "s", "bs"], help="Specify the encoding type: b for base64,s for sha256, bs for base64+sha256")
         args = parser.parse_args()
 
-        password = args.pwd
-        username = args.user
-        debug = args.debug
-        ip_addrs = args.ip
-        port = args.port
-        protocol = args.protocol
-        ssl = args.ssl
-        request = args.request
-        encoding = args.encoding
+        PASSWORD = args.pwd
+        USERNAME = args.user
+        DEBUG = args.debug
+        IP_ADDRS = args.ip
+        PORT = args.port
+        PROTOCOL = args.protocol
+        SSL = args.ssl
+        REQUEST = args.request
+        ENCODING = args.encoding
 
-    except Exception as e:
-        print('ERROR: %s' %e)
+    except Exception as exp:
+        print('ERROR: %s' %exp)
 
-    if debug:
+    if DEBUG:
         log.getLogger().setLevel(log.DEBUG)
-        from http.client import HTTPConnection
         HTTPConnection.debuglevel = 1
         log.getLogger("requests.packages.urllib3").setLevel(log.DEBUG)
         log.getLogger("requests.packages.urllib3").propagate = True
     else:
         log.getLogger().setLevel(log.INFO)
 
-    print("Trying IP addresses {} ...".format(ip_addrs))
+    print("Trying IP addresses {} ...".format(IP_ADDRS))
     Login().login()
 
 

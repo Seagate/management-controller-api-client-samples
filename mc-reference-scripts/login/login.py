@@ -80,29 +80,6 @@ class Login:
         return
 
 
-'''
-This function prints the mini help section on error
-
-:returns None
-
-'''
-
-
-def usage():
-    print('usage: [-h] -u USER -p PWD [-d] [-s] -i IP [-P PORT] [-x PROTOCOL]')
-    print(' Arguments: ')
-    print('   -h              Show this help message and exit')
-    print('   -u USER         Username of MC (default: None)')
-    print('   -p PWD          Password of specified user (default: None)')
-    print('   -d              Enable Debug output (default: False)')
-    print('   -s              Enable SSL verification (default: False)')
-    print('   -i IP           Enable Debug output (default: None)')
-    print('   -P PORT         Specify the port (default: 443)')
-    print('   -x PROTOCOL     Specify the protocol (default: https)')
-    print('   -r TYPE         Specify the type of request(API/REST) (default: API)')
-    print('   -e ENCODING     Specify encoding type(base64/sha256/base64+sha256) (default: base64)')
-
-
 def main():
     global username, password, ip_addrs, debug, ssl, port, protocol, request, encoding
     try:
@@ -121,10 +98,10 @@ def main():
                             default=443, help="Specify the port")
         parser.add_argument("-x", "--protocol",
                             default="https", help="Specify the protocol")
-        parser.add_argument("-r", "--request", default=1, type=int,
-                            choices=[1, 2], help="Specify the request type: 1 for API, 2 for REST")
-        parser.add_argument("-e", "--encoding", default=1, type=int, choices=[
-                            1, 2, 3], help="Specify the encoding type: 1 for base64, 2 for sha256, 3 for base64+sha256")
+        parser.add_argument("-r", "--request", default="a", choices=[
+                            "a", "r"], help="Specify the request type: a for API, r for REST")
+        parser.add_argument("-e", "--encoding", default="b", choices=[
+                            "b", "s", "bs"], help="Specify the encoding type: b for base64, s for sha256, bs for base64+sha256")
         args = parser.parse_args()
 
         password = args.pwd
@@ -138,7 +115,6 @@ def main():
         encoding = args.encoding
 
     except Exception as e:
-        usage()
         print('ERROR: %s' % e)
 
     if debug:

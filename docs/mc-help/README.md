@@ -1,6 +1,7 @@
 ## Usage of scripts in this repository
 
 ### [const.py](./const.py)
+It contains enum
 
 ### [login.py](./login.py)
 It consumes the classes for login provided by loginfactory in python
@@ -63,12 +64,12 @@ after successful login.
 ```python3
 import LoginFactory
 
-base64 = LoginFactory.Base64Login("manage", "test123!", "10.235.209.91", 443,"https", False)
+base64 = LoginFactory.Base64Login("user", "password", "127.0.0.0", 443,"https", False)
 base64.login()
 ```
 
 Parameters to be passed while creating object of Base64Login -
-
+```
 Mandatory parameters
 	username    : Username of the user
 	password    : Password of the user
@@ -80,5 +81,5 @@ Optional parameters
 			      If not passed, by default protocol is set to https.
 	ssl_verify  : Boolean value (True or False) for verification of SSL certificates
 				  If not passed, by default ssl_verify is set to False.
-
+```
 <b> NOTE :</b> <i>"Other Classes can be used in similar manner" </i>

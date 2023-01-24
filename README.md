@@ -7,18 +7,21 @@ The purpose of this repository is to keep the scripts, tools, and other configur
 
 ```
 .
+.
 ├── CODE_OF_CONDUCT.md
 ├── LICENSE
 ├── mc-reference-scripts
 │   ├── const.py
 │   ├── login
 │   │   ├── loginFactory.py
-│   │   └──  login.py
+│   │   ├── login.py
+│   │   └── README.md
 │   ├── oldSamples
 │   │   ├── APIAccessBase64.py
 │   │   ├── APIAccessBase64SHA256.pl
 │   │   ├── APIAccessBase64SHA256.py
 │   │   ├── APIAccessSHA256.py
+│   │   ├── CLI_Reference_Guide.pdf
 │   │   ├── RESTAccessBase64.py
 │   │   ├── RESTAccessBase64SHA256.py
 │   │   └── RESTAccessSHA256.py
@@ -35,4 +38,4 @@ Below you can find the list of all scripts which are very useful for the develop
 
 ### [APIs](./mc-reference-scripts/README.md)
 
-* Login API
+* [Login API](./mc-reference-scripts/login/README.md)

@@ -102,10 +102,6 @@ def main():
                             "a", "r"], help="Specify the request type: a for API, r for REST")
         parser.add_argument("-e", "--encoding", default="b", choices=[
                             "b", "s", "bs"], help="Specify the encoding type: b for base64, s for sha256, bs for base64+sha256")
-        parser.add_argument("-r", "--request", default="a", choices=[
-                            "a", "r"], help="Specify the request type: a for API, r for REST")
-        parser.add_argument("-e", "--encoding", default="b", choices=[
-                            "b", "s", "bs"], help="Specify the encoding type: b for base64, s for sha256, bs for base64+sha256")
         args = parser.parse_args()
 
         password = args.pwd

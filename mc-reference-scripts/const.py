@@ -21,11 +21,11 @@ from enum import Enum
 
 
 class RequestType(Enum):
-    API = 1
-    REST = 2
+    API = "a"
+    REST = "r"
 
 
 class EncodingType(Enum):
-    BASE64 = 1
-    SHA256 = 2
-    BASE64_SHA256 = 3
+    BASE64 = "b"
+    SHA256 = "s"
+    BASE64_SHA256 = "bs"

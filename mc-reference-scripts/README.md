@@ -4,7 +4,7 @@
 
 It contains enum
 
-### [login.py](./login.py)
+### [login.py](./login/login.py)
 
 It consumes the classes for login provided by loginfactory in python
 
@@ -30,13 +30,13 @@ optional arguments:
   -P PORT, --port PORT  Specify the port (default: 443)
   -x PROTOCOL, --protocol PROTOCOL
                         Specify the protocol (default: https)
-  -r {1,2}, --request {1,2}
-                        Specify the request type: 1 for API, 2 for REST (default: 1)
-  -e {1,2,3}, --encoding {1,2,3}
-                        Specify the encoding type: 1 for base64, 2 for sha256, 3 for base64+sha256 (default: 1)
+  -r {a,r}, --request {a,r}
+                        Specify the request type: a for API, r for REST (default: a)
+  -e {b,s,bs}, --encoding {b,s,bs}
+                        Specify the encoding type: b for base64, s for sha256, bs for base64+sha256 (default: b)
 ```
 
-### [loginFactory.py](./loginFactory.py)
+### [loginFactory.py](./login/loginFactory.py)
 
 loginFactory provides classes for login procedure for XML API and REST API in python.
 
@@ -61,10 +61,13 @@ create object of Base64Login class and call login() method. It will return sessi
 after successful login.
 
 ```python3
-import LoginFactory
+from loginFactory import Base64Login 
 
-base64 = LoginFactory.Base64Login("user", "password", "127.0.0.0", 443,"https", False)
-base64.login()
+obj1 = Base64Login("username", "password", "127.0.0.0")
+sessionKey = obj1.login() 
+
+obj2 = Base64Login("username", "password", "127.0.0.0", 443,"https", False)
+sessionKey = obj2.login()
 ```
 
 Parameters to be passed while creating object of Base64Login -

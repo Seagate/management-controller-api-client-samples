@@ -6,13 +6,23 @@ The purpose of this repository is to keep the scripts, tools, and other configur
 ## Repo Structure
 
 ```
+.
 ├── CODE_OF_CONDUCT.md
-├── docs
-│   └── mc-help
-│       ├── const.py
-│       ├── loginFactory.py
-│       ├── login.py
 ├── LICENSE
+├── mc-reference-scripts
+│   ├── const.py
+│   ├── login
+│   │   ├── loginFactory.py
+│   │   └──  login.py
+│   ├── oldSamples
+│   │   ├── APIAccessBase64.py
+│   │   ├── APIAccessBase64SHA256.pl
+│   │   ├── APIAccessBase64SHA256.py
+│   │   ├── APIAccessSHA256.py
+│   │   ├── RESTAccessBase64.py
+│   │   ├── RESTAccessBase64SHA256.py
+│   │   └── RESTAccessSHA256.py
+│   └── README.md
 └── README.md
 ```
 
@@ -23,6 +33,6 @@ Here our community is providing the very useful scripts for Management Controlle
 ## List of scripts in this repository:
 Below you can find the list of all scripts which are very useful for the developers, so dive in:
 
-### [APIs](./docs/mc-help/README.md)
+### [APIs](./mc-reference-scripts/README.md)
 
 * Login API

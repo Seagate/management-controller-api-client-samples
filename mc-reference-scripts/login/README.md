@@ -43,12 +43,15 @@ and remaining three are for REST API login. LoginFactory is fully documented.
 
 It consumes these classes
 
-1. class Base64Login - A class to perform login operation using Base64 encoding for XML API
+1. class BasicAuthLogin - A class to perform login operation using Base64 encoding for XML API
 2. class SHA256Login - A class to perform login operation using SHA256 encoding for XML API
-3. class Base64SHA256Login - A class to perform login operation using Base64+SHA256 encoding for XML API
-4. class RESTBase64Login - A class to perform login operation using Base64 encoding for REST API
+3. class BasicAuthSHA256Login - A class to perform login operation using Base64+SHA256 encoding for XML API
+4. class RESTBasicAuthLogin - A class to perform login operation using Base64 encoding for REST API
 5. class RESTSHA256Login - A class to perform login operation using SHA256 encoding for REST API
-6. class RESTBase64SHA256Login - A class to perform login operation using Base64+SHA256 encoding for REST API
+6. class RESTBasicAuthSHA256Login - A class to perform login operation using Base64+SHA256 encoding for REST API
+
+<b> DISCLAIMER :</b> <i>"REST API's are despricated, so all functionalities may not work properly.
+Please Use At Your Own Risk" </i>
 
 - Usage
 

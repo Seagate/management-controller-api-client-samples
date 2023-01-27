@@ -60,20 +60,20 @@ create object of Base64Login class and call login() method. It will return sessi
 after successful login.
 
 ```python3
-from loginFactory import Base64Login 
+from loginFactory import BasicAuthLogin
 
-obj1 = Base64Login("username", "password", "127.0.0.0")
+obj1 = BasicAuthLogin("username", "password", "127.0.0.0")
 sessionKey = obj1.login() 
 
-obj2 = Base64Login("username", "password", "127.0.0.0", 443,"https", False)
+obj2 = BasicAuthLogin("username", "password", "127.0.0.0", 443,"https", False)
 sessionKey = obj2.login()
 ```
 
 If any mandatory parameter is not passed then it will throw error
 ```python3
-from LoginFactory import 
+from LoginFactory import BasicAuthLogin
 
-Base64Login obj = Base64Login("username", "127.0.0.0")
+obj = BasicAuthLogin("username", "127.0.0.0")
 sessionKey = obj.login()
 ```
 ```
@@ -82,9 +82,9 @@ Output: TypeError: __init__() missing 1 required positional argument 
 
 If user passes invalid parameters then it will throw error as Authentication Unsuccessful
 ```python3
-from LoginFactory import Base64Login
+from LoginFactory import BasicAuthLogin
 
-obj = Base64Login("username", "password@123", "127.0.0.0")
+obj = BasicAuthLogin("username", "password@123", "127.0.0.0")
 sessionKey = obj.login()
 ```
 ```

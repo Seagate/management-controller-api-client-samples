@@ -20,7 +20,7 @@
 import logging as log
 from http.client import HTTPConnection
 from argparse import ArgumentParser, ArgumentDefaultsHelpFormatter
-from loginFactory import Base64Login, SHA256Login, Base64SHA256Login, RESTBase64Login, RESTSHA256Login, RESTBase64SHA256Login
+from loginFactory import BasicAuthLogin, SHA256Login, BasicAuthSHA256Login, RESTBasicAuthLogin, RESTSHA256Login, RESTBasicAuthSHA256Login
 from const import RequestType, EncodingType
 
 
@@ -34,7 +34,7 @@ PASSWORD : password of the user
 PROTOCOL : protocol to be followed for request (Http or Https)
 IP_ADDRS : Ip address of the array
 PORT : port specified by the user
-ssl_verify : Boolean value (True or False) for verification of SSL certificates
+SSL : Boolean value (True or False) for verification of SSL certificates
 
 Methods
 -------
@@ -58,19 +58,19 @@ class Login:
         '''
         request_encoding_keys = {
             RequestType.API.value: {
-                EncodingType.BASE64.value: Base64Login(USERNAME, PASSWORD, IP_ADDRS,
+                EncodingType.BASE64.value: BasicAuthLogin(USERNAME, PASSWORD, IP_ADDRS,
                     PORT, PROTOCOL, SSL),
                 EncodingType.SHA256.value: SHA256Login(USERNAME, PASSWORD, IP_ADDRS,
                     PORT, PROTOCOL, SSL),
-                EncodingType.BASE64_SHA256.value: Base64SHA256Login(
+                EncodingType.BASE64_SHA256.value: BasicAuthSHA256Login(
                     USERNAME, PASSWORD, IP_ADDRS, PORT, PROTOCOL, SSL)
             },
             RequestType.REST.value: {
-                EncodingType.BASE64.value: RESTBase64Login(USERNAME, PASSWORD, IP_ADDRS,
+                EncodingType.BASE64.value: RESTBasicAuthLogin(USERNAME, PASSWORD, IP_ADDRS,
                     PORT, PROTOCOL, SSL),
                 EncodingType.SHA256.value: RESTSHA256Login(USERNAME, PASSWORD, IP_ADDRS,
                     PORT, PROTOCOL, SSL),
-                EncodingType.BASE64_SHA256.value: RESTBase64SHA256Login(
+                EncodingType.BASE64_SHA256.value: RESTBasicAuthSHA256Login(
                     USERNAME, PASSWORD, IP_ADDRS, PORT, PROTOCOL, SSL)
             }
         }
@@ -103,7 +103,7 @@ def main():
         parser.add_argument("-x", "--protocol",
                             default="https", help="Specify the protocol")
         parser.add_argument("-r", "--request", default="a", choices=[
-                            "a", "r"], help="Specify the request type: a for API, r for REST")
+                            "a", "r"], help="Specify the request type: a for API, r for REST(depricated)")
         parser.add_argument("-e", "--encoding", default="b", choices=[
                             "b", "s", "bs"], help="Specify the encoding type: b for base64,s for sha256, bs for base64+sha256")
         args = parser.parse_args()

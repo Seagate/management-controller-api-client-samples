@@ -31,7 +31,17 @@ optional arguments:
   -e {b,s,bs}, --encoding {b,s,bs}
                         Specify the encoding type: b for base64, s for sha256, bs for base64+sha256 (default: b)
 ```
+User needs to run login.py using python and pass the required parameters and optional parameters(if required).
 
+```bash
+python3 login/login.py -u username -p password -i 127.0.0.0
+```
+This prints:
+```
+Trying IP addresses 127.0.0.0 ...
+Logging using API with BASE64 encoding
+Logged in to array :  127.0.0.0
+```
 ### [loginFactory.py](./login/loginFactory.py)
 
 loginFactory provides classes for login procedure for XML API and REST API in python.
@@ -66,7 +76,10 @@ sessionKey = obj1.login() 
 obj2 = BasicAuthLogin("username", "password", "127.0.0.0", 443,"https", False)
 sessionKey = obj2.login()
 ```
-
+This prints:
+```
+Logged in to array :  127.0.0.0
+```
 If any mandatory parameter is not passed then it will throw error
 ```python3
 from LoginFactory import BasicAuthLogin
@@ -74,6 +87,7 @@ from LoginFactory import BasicAuthLogin
 obj = BasicAuthLogin("username", "127.0.0.0")
 sessionKey = obj.login()
 ```
+This prints:
 ```
 Output: TypeError: __init__() missing 1 required positional argument 
 ```
@@ -85,6 +99,7 @@ from LoginFactory import BasicAuthLogin
 obj = BasicAuthLogin("username", "password@123", "127.0.0.0")
 sessionKey = obj.login()
 ```
+This prints:
 ```
 Output: Authentication Unsuccessful
 ```

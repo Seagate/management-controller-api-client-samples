@@ -2,12 +2,12 @@
 
 ### [login.py](./login/login.py)
 
-It consumes the classes for login provided by loginfactory in python
+It consumes the classes for login provided by loginFactory in python
 
 - Introduction
 
-Depending upon the request and encoding type specified by user, it calls
-the respective class to perform login operation on the array.
+  Depending upon the request and encoding type specified by user, it calls
+  the respective class to perform login operation on the array.
 
 - Usage
 
@@ -38,17 +38,18 @@ loginFactory provides classes for login procedure for XML API and REST API in py
 
 - Introduction
 
-LoginFactory provides six classes out of which three of them for XML API login
-and remaining three are for REST API login. LoginFactory is fully documented.
+LoginFactory provides six classes out of which three are for XML API login and remaining are for REST API login.
 
 It consumes these classes
 
-1. class Base64Login - A class to perform login operation using Base64 encoding for XML API
+1. class BasicAuthLogin - A class to perform login operation using Base64 encoding for XML API
 2. class SHA256Login - A class to perform login operation using SHA256 encoding for XML API
-3. class Base64SHA256Login - A class to perform login operation using Base64+SHA256 encoding for XML API
-4. class RESTBase64Login - A class to perform login operation using Base64 encoding for REST API
+3. class BasicAuthSHA256Login - A class to perform login operation using Base64+SHA256 encoding for XML API
+4. class RESTBasicAuthLogin - A class to perform login operation using Base64 encoding for REST API
 5. class RESTSHA256Login - A class to perform login operation using SHA256 encoding for REST API
-6. class RESTBase64SHA256Login - A class to perform login operation using Base64+SHA256 encoding for REST API
+6. class RESTBasicAuthSHA256Login - A class to perform login operation using Base64+SHA256 encoding for REST API
+
+<b> DISCLAIMER :</b> <i>"REST API endpoints are despricated." </i>
 
 - Usage
 
@@ -57,20 +58,20 @@ create object of Base64Login class and call login() method. It will return sessi
 after successful login.
 
 ```python3
-from loginFactory import Base64Login 
+from loginFactory import BasicAuthLogin
 
-obj1 = Base64Login("username", "password", "127.0.0.0")
+obj1 = BasicAuthLogin("username", "password", "127.0.0.0")
 sessionKey = obj1.login() 
 
-obj2 = Base64Login("username", "password", "127.0.0.0", 443,"https", False)
+obj2 = BasicAuthLogin("username", "password", "127.0.0.0", 443,"https", False)
 sessionKey = obj2.login()
 ```
 
 If any mandatory parameter is not passed then it will throw error
 ```python3
-from LoginFactory import 
+from LoginFactory import BasicAuthLogin
 
-Base64Login obj = Base64Login("username", "127.0.0.0")
+obj = BasicAuthLogin("username", "127.0.0.0")
 sessionKey = obj.login()
 ```
 ```
@@ -79,9 +80,9 @@ Output: TypeError: __init__() missing 1 required positional argument 
 
 If user passes invalid parameters then it will throw error as Authentication Unsuccessful
 ```python3
-from LoginFactory import Base64Login
+from LoginFactory import BasicAuthLogin
 
-obj = Base64Login("username", "password@123", "127.0.0.0")
+obj = BasicAuthLogin("username", "password@123", "127.0.0.0")
 sessionKey = obj.login()
 ```
 ```

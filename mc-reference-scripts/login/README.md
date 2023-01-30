@@ -2,12 +2,12 @@
 
 ### [login.py](./login/login.py)
 
-It consumes the classes for login provided by loginfactory in python
+It consumes the classes for login provided by loginFactory in python
 
 - Introduction
 
-Depending upon the request and encoding type specified by user, it calls
-the respective class to perform login operation on the array.
+  Depending upon the request and encoding type specified by user, it calls
+  the respective class to perform login operation on the array.
 
 - Usage
 
@@ -38,8 +38,7 @@ loginFactory provides classes for login procedure for XML API and REST API in py
 
 - Introduction
 
-LoginFactory provides six classes out of which three of them for XML API login
-and remaining three are for REST API login. LoginFactory is fully documented.
+LoginFactory provides six classes out of which three are for XML API login and remaining are for REST API login.
 
 It consumes these classes
 
@@ -50,8 +49,7 @@ It consumes these classes
 5. class RESTSHA256Login - A class to perform login operation using SHA256 encoding for REST API
 6. class RESTBasicAuthSHA256Login - A class to perform login operation using Base64+SHA256 encoding for REST API
 
-<b> DISCLAIMER :</b> <i>"REST API's are despricated, so all functionalities may not work properly.
-Please Use At Your Own Risk" </i>
+<b> DISCLAIMER :</b> <i>"REST API endpoints are despricated." </i>
 
 - Usage
 

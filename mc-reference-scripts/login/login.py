@@ -103,7 +103,7 @@ def main():
         parser.add_argument("-x", "--protocol",
                             default="https", help="Specify the protocol")
         parser.add_argument("-r", "--request", default="a", choices=[
-                            "a", "r"], help="Specify the request type: a for API, r for REST")
+                            "a", "r"], help="Specify the request type: a for API, r for REST(depricated)")
         parser.add_argument("-e", "--encoding", default="b", choices=[
                             "b", "s", "bs"], help="Specify the encoding type: b for base64,s for sha256, bs for base64+sha256")
         args = parser.parse_args()

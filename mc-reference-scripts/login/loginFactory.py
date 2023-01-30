@@ -406,8 +406,7 @@ class RESTBasicAuthLogin:
         '''
         This function shows warning message as REST Api's are depracated
         '''
-        warn("REST API's are deprecated. All functionalities may now work properly", 
-        category= Warning)
+        warn("REST API's are deprecated.", category= Warning)
         warn("For best performance use API Login")
 
     def login(self):
@@ -508,8 +507,7 @@ class RESTSHA256Login:
         '''
         This function shows warning message as REST Api's are depracated
         '''
-        warn("REST API's are deprecated. All functionalities may now work properly", 
-        category= Warning)
+        warn("REST API's are deprecated.", category= Warning)
         warn("For best performance use API Login")
 
     def login(self):
@@ -615,8 +613,7 @@ class RESTBasicAuthSHA256Login:
         '''
         This function shows warning message as REST Api's are depracated
         '''
-        warn("REST API's are deprecated. All functionalities may now work properly", 
-        category= Warning)
+        warn("REST API's are deprecated.", category= Warning)
         warn("For best performance use API Login")
 
     def login(self):

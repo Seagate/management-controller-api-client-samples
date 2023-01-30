@@ -27,7 +27,7 @@ optional arguments:
   -x PROTOCOL, --protocol PROTOCOL
                         Specify the protocol (default: https)
   -r {a,r}, --request {a,r}
-                        Specify the request type: a for API, r for REST (default: a)
+                        Specify the request type: a for API, r for REST(depricated) (default: a)
   -e {b,s,bs}, --encoding {b,s,bs}
                         Specify the encoding type: b for base64, s for sha256, bs for base64+sha256 (default: b)
 ```
@@ -38,18 +38,18 @@ loginFactory provides classes for login procedure for XML API and REST API in py
 
 - Introduction
 
-LoginFactory provides six classes out of which three are for XML API login and remaining are for REST API login.
+LoginFactory provides six classes out of which three are for XML API login and remaining are for REST login.
 
 It consumes these classes
 
 1. class BasicAuthLogin - A class to perform login operation using Base64 encoding for XML API
 2. class SHA256Login - A class to perform login operation using SHA256 encoding for XML API
 3. class BasicAuthSHA256Login - A class to perform login operation using Base64+SHA256 encoding for XML API
-4. class RESTBasicAuthLogin - A class to perform login operation using Base64 encoding for REST API
-5. class RESTSHA256Login - A class to perform login operation using SHA256 encoding for REST API
-6. class RESTBasicAuthSHA256Login - A class to perform login operation using Base64+SHA256 encoding for REST API
+4. class RESTBasicAuthLogin - A class to perform login operation using Base64 encoding for REST
+5. class RESTSHA256Login - A class to perform login operation using SHA256 encoding for REST
+6. class RESTBasicAuthSHA256Login - A class to perform login operation using Base64+SHA256 encoding for REST
 
-<b> DISCLAIMER :</b> <i>"REST API endpoints are despricated." </i>
+<b> DISCLAIMER :</b> <i>"REST endpoints are despricated. For best performance use API" </i>
 
 - Usage
 

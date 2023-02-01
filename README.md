@@ -3,9 +3,9 @@ The purpose of this repository is to keep the scripts, tools, and other configur
 
 **Disclaimer: "Quality matters not quantity."**
 
-## Key Features
-* Provides API as well as REST interface
-* Provides [CLI reference guide](./reference-scripts/oldSamples/CLI_Reference_Guide.pdf)
+## Includes
+* API as well as REST interface for management operations
+* [CLI reference guide](./reference-scripts/oldSamples/CLI_Reference_Guide.pdf)
 
 ## Repo Structure
 

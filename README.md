@@ -1,5 +1,5 @@
-# Storage-Devices
-The purpose of this repository is to keep the scripts, tools, and other configuration used for Seagate Storage Devices. This project is licensed under Apache License 2.0.
+# SAN
+The purpose of this repository is to keep the scripts, tools, and other configuration used for Storage Area Network(SAN). This project is licensed under Apache License 2.0.
 
 **Disclaimer: "Quality matters not quantity."**
 

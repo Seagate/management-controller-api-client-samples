@@ -18,35 +18,36 @@ The purpose of this repository is to keep the scripts, tools, and other configur
 ├── README.md
 └── src
     └── scripts
+        ├── common
+        │   ├── login
+        │   │   ├── loginFactory.py
+        │   │   ├── login.py
+        │   │   └── README.md
+        │   └── oldSamples
+        │       ├── APIAccessBase64.py
+        │       ├── APIAccessBase64SHA256.pl
+        │       ├── APIAccessBase64SHA256.py
+        │       ├── APIAccessSHA256.py
+        │       ├── CLI_Reference_Guide.pdf
+        │       ├── RESTAccessBase64.py
+        │       ├── RESTAccessBase64SHA256.py
+        │       └── RESTAccessSHA256.py
         ├── const.py
-        ├── login
-        │   ├── loginFactory.py
-        │   ├── login.py
-        │   └── README.md
-        ├── oldSamples
-        │   ├── APIAccessBase64.py
-        │   ├── APIAccessBase64SHA256.pl
-        │   ├── APIAccessBase64SHA256.py
-        │   ├── APIAccessSHA256.py
-        │   ├── CLI_Reference_Guide.pdf
-        │   ├── RESTAccessBase64.py
-        │   ├── RESTAccessBase64SHA256.py
-        │   └── RESTAccessSHA256.py
         └── README.md
 
 ```
 
 ## [Scripts](./src/scripts/)
 
-Here our community is providing the very useful scripts for Seagate Storage Devices. 
+Here our community is providing the very useful scripts for Storage Area Network(SAN). 
 
 ### List of scripts in this repository:
 Below you can find the list of all scripts which are very useful for the developers, so dive in:
 
 #### [Module](./src/scripts/README.md)
 
-* [Old Sample](./src/scripts/oldSamples/)
-* [Login](./src/scripts/login/README.md)
+* [Old Sample](./src/scripts/common/oldSamples/)
+* [Login](./src/scripts/common/login/README.md)
 
 ## Requirements
 
@@ -56,4 +57,4 @@ Below you can find the list of all scripts which are very useful for the develop
 These scripts are offered under the Apache 2 license.
 
 ## Source Code
-The latest developer version is available in a GitHub repository: https://github.com/Seagate/SAN-Scripts
+The latest developer version is available in a GitHub repository: https://github.com/Seagate/SAN

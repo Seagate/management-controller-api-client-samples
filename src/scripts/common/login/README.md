@@ -1,6 +1,6 @@
 ## Usage of scripts in this directory
 
-### [login.py](./login/login.py)
+### [login.py](./login.py)
 
 It consumes the classes for login provided by loginFactory in python
 
@@ -42,7 +42,7 @@ Trying IP addresses 127.0.0.0 ...
 Logging using API with BASE64 encoding
 Logged in to array :  127.0.0.0
 ```
-### [loginFactory.py](./login/loginFactory.py)
+### [loginFactory.py](./loginFactory.py)
 
 loginFactory provides classes for login procedure for XML API and REST API in python.
 
@@ -113,7 +113,7 @@ Mandatory parameters
 	host        : IP address of the array
 Optional parameters
  	port        : Port on which request should be sent
-                      If not passed, by default port is set to 443.
+              If not passed, by default port is set to 443.
 	protocol    : Protocol to be followed for request (http or https)
 		      If not passed, by default protocol is set to https.
 	ssl_verify  : Boolean value (True or False) for verification of SSL certificates

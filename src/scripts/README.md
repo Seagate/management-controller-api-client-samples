@@ -12,10 +12,10 @@ It contains a collection of constants used in other scripts
 | SHA256        | s       |
 | BASE64_SHA256 | bs      | 
 
-### [login](./login/)
+### [login](./common/login/)
 
-This directory contains login related scripts. For additional information about the login scripts see the associated [README](./login/README.md) file.
+This directory contains login related scripts. For additional information about the login scripts see the associated [README](./common/login/README.md) file.
 
-### [oldSamples](./oldSamples/)
+### [oldSamples](./common/oldSamples/)
 
-This directory contains old login sample scripts along with the [CLI REFERENCE GUIDE](./oldSamples/CLI_Reference_Guide.pdf).
+This directory contains old login sample scripts along with the [CLI REFERENCE GUIDE](./common/oldSamples/CLI_Reference_Guide.pdf).

@@ -1,33 +1,36 @@
-# Problem Statement
+### Describe your changes in brief
 - Problem statement
 
-# Design
--  For Bug, Describe the fix here.
--  For Feature, Post the link for design
+### Changes
+   Checklist for Author
+ - [ ] Why is this change required? What problem does it solve?
+ - [ ] If proposing a new change then please raise an issue first
 
 # Coding
    Checklist for Author
 -  [ ] Coding conventions are followed and code is consistent
 
-# Testing 
-  Checklist for Author
-- [ ] Unit and System Tests are added
-- [ ] Test Cases cover Happy Path, Non-Happy Path and Scalability
-- [ ] Testing was performed with RPM
+### How Has This Been Tested? (Optional)
+   Checklist for Author
+ - [ ] Please describe in detail how you tested your changes.
+ - [ ] Include details of your testing environment, and the tests you ran to
+ - [ ] How your change affects other areas of the code, etc.
 
 # Impact Analysis
   Checklist for Author/Reviewer/GateKeeper
 - [ ] Interface change (if any) are documented
-- [ ] Side effects on other features (deployment/upgrade)
+- [ ] Side effects on other features
 - [ ] Dependencies on other component(s)
 
 # Review Checklist 
   Checklist for Author
-- [ ] JIRA number/GitHub Issue added to PR
-- [ ] PR is self reviewed
-- [ ] Jira and state/status is updated and JIRA is updated with PR link
-- [ ] Check if the description is clear and explained
+ - [ ] tested locally
+ - [ ] added new dependencies
+ - [ ] updated the docs
+ - [ ] added a test
 
 # Documentation
   Checklist for Author
 - [ ] Changes done to WIKI / Confluence page / Quick Start Guide
+
+# Screenshots (if appropriate)

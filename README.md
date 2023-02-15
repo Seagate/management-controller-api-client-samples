@@ -1,11 +1,12 @@
-# SAN
-The purpose of this repository is to keep the scripts, tools, and other configuration used for Storage Area Network(SAN). This project is licensed under Apache License 2.0.
+# API Client Samples
+
+The purpose of this repository is to keep the api client samples, tools, and other configuration used for Storage Area Network(SAN). This project is licensed under Apache License 2.0.
 
 **Disclaimer: "Quality matters not quantity."**
 
 ## Includes
-* API as well as REST interface for management operations
-* [CLI reference guide](./src/scripts/oldSamples/CLI_Reference_Guide.pdf)
+
+- API Client Samples
 
 ## Repo Structure
 
@@ -13,48 +14,50 @@ The purpose of this repository is to keep the scripts, tools, and other configur
 .
 ├── CODE_OF_CONDUCT.md
 ├── CODEOWNERS
-├── CONTRIBUTING.md
 ├── LICENSE
 ├── README.md
 └── src
-    └── scripts
-        ├── common
-        │   ├── login
-        │   │   ├── loginFactory.py
-        │   │   ├── login.py
-        │   │   └── README.md
-        │   └── oldSamples
-        │       ├── APIAccessBase64.py
-        │       ├── APIAccessBase64SHA256.pl
-        │       ├── APIAccessBase64SHA256.py
-        │       ├── APIAccessSHA256.py
-        │       ├── CLI_Reference_Guide.pdf
-        │       ├── RESTAccessBase64.py
-        │       ├── RESTAccessBase64SHA256.py
-        │       └── RESTAccessSHA256.py
+    ├── perl
+    │   ├── depricated
+    │   │   └── APIAccessBase64SHA256.pl
+    │   └── README.md
+    └── py
         ├── const.py
+        ├── depricated
+        │   ├── APIAccessBase64.py
+        │   ├── APIAccessBase64SHA256.py
+        │   ├── APIAccessSHA256.py
+        │   ├── RESTAccessBase64.py
+        │   ├── RESTAccessBase64SHA256.py
+        │   └── RESTAccessSHA256.py
+        ├── login
+        │   ├── loginFactory.py
+        │   ├── login.py
+        │   └── README.md
         └── README.md
-
 ```
 
-## [Scripts](./src/scripts/)
+## [API Samples](./src/)
 
-Here our community is providing the very useful scripts for Storage Area Network(SAN). 
+Here our community is providing the API client samples for Storage Area Network(SAN).
 
-### List of scripts in this repository:
-Below you can find the list of all scripts which are very useful for the developers, so dive in:
+### List of samples in this repository:
 
-#### [Module](./src/scripts/README.md)
+Below you can find the list of all API client samples which are very useful for the developers, so dive in:
 
-* [Old Sample](./src/scripts/common/oldSamples/)
-* [Login](./src/scripts/common/login/README.md)
+#### [Python](./src/py/README.md)
 
-## Requirements
+- [Depricated](./src/py/depricated/)
+- [Login](./src/py/login/README.md)
 
-* Python >= 3.6
+#### [Perl](./src/perl/README.md)
+
+- [Depricated](./src/perl/depricated/)
 
 ## License
+
 These scripts are offered under the Apache 2 license.
 
 ## Source Code
-The latest developer version is available in a GitHub repository: https://github.com/Seagate/SAN
+
+The latest developer version is available in a GitHub repository: https://github.com/Seagate/api-client-samples

@@ -1,4 +1,4 @@
-# SAN
+# API Client Samples
 
 The purpose of this repository is to keep the api client samples, tools, and other configuration used for Storage Area Network(SAN). This project is licensed under Apache License 2.0.
 
@@ -14,15 +14,17 @@ The purpose of this repository is to keep the api client samples, tools, and oth
 .
 ├── CODE_OF_CONDUCT.md
 ├── CODEOWNERS
-├── CONTRIBUTING.md
 ├── LICENSE
 ├── README.md
 └── src
+    ├── perl
+    │   ├── depricated
+    │   │   └── APIAccessBase64SHA256.pl
+    │   └── README.md
     └── py
         ├── const.py
         ├── depricated
         │   ├── APIAccessBase64.py
-        │   ├── APIAccessBase64SHA256.pl
         │   ├── APIAccessBase64SHA256.py
         │   ├── APIAccessSHA256.py
         │   ├── RESTAccessBase64.py
@@ -33,7 +35,6 @@ The purpose of this repository is to keep the api client samples, tools, and oth
         │   ├── login.py
         │   └── README.md
         └── README.md
-
 ```
 
 ## [API Samples](./src/)
@@ -59,4 +60,4 @@ These scripts are offered under the Apache 2 license.
 
 ## Source Code
 
-The latest developer version is available in a GitHub repository: https://github.com/Seagate/san
+The latest developer version is available in a GitHub repository: https://github.com/Seagate/api-client-samples

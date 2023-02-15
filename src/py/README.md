@@ -14,7 +14,7 @@ It contains a collection of constants used in other scripts
 
 ### [login](./login/)
 
-This directory contains login related scripts. For additional information about the login scripts see the associated [README](./common/login/README.md) file.
+This directory contains login related scripts. For additional information about the login scripts see the associated [README](./login/README.md) file.
 
 ### [depricated](./depricated/)
 

@@ -1,4 +1,4 @@
-## Usage of scripts in this directory
+## Usage of API client samples in this directory
 
 ### [login.py](./login.py)
 
@@ -7,7 +7,7 @@ It consumes the classes for login provided by loginFactory in python
 - Introduction
 
   Depending upon the request and encoding type specified by user, it calls
-  the respective class to perform login operation on the array.
+  the respective class to perform login operation on the system.
 
 - Usage
 
@@ -31,17 +31,21 @@ optional arguments:
   -e {b,s,bs}, --encoding {b,s,bs}
                         Specify the encoding type: b for base64, s for sha256, bs for base64+sha256 (default: b)
 ```
+
 User needs to run login.py using python and pass the required parameters and optional parameters(if required).
 
 ```bash
 python3 login/login.py -u username -p password -i 127.0.0.0
 ```
+
 This prints:
+
 ```
 Trying IP addresses 127.0.0.0 ...
 Logging using API with BASE64 encoding
 Logged in to array :  127.0.0.0
 ```
+
 ### [loginFactory.py](./loginFactory.py)
 
 loginFactory provides classes for login procedure for XML API and REST API in python.
@@ -76,30 +80,39 @@ sessionKey = obj1.login() 
 obj2 = BasicAuthLogin("username", "password", "127.0.0.0", 443,"https", False)
 sessionKey = obj2.login()
 ```
+
 This prints:
+
 ```
 Logged in to array :  127.0.0.0
 ```
+
 If any mandatory parameter is not passed then it will throw error
+
 ```python3
 from LoginFactory import BasicAuthLogin
 
 obj = BasicAuthLogin("username", "127.0.0.0")
 sessionKey = obj.login()
 ```
+
 This prints:
+
 ```
 Output: TypeError: __init__() missing 1 required positional argument 
 ```
 
 If user passes invalid parameters then it will throw error as Authentication Unsuccessful
+
 ```python3
 from LoginFactory import BasicAuthLogin
 
 obj = BasicAuthLogin("username", "password@123", "127.0.0.0")
 sessionKey = obj.login()
 ```
+
 This prints:
+
 ```
 Output: Authentication Unsuccessful
 ```
@@ -110,7 +123,7 @@ Parameters to be passed while creating object of Base64Login -
 Mandatory parameters
 	username    : Username of the user
 	password    : Password of the user
-	host        : IP address of the array
+	host        : IP address of the system
 Optional parameters
  	port        : Port on which request should be sent
               If not passed, by default port is set to 443.

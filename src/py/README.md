@@ -16,6 +16,6 @@ It contains a collection of constants used in other scripts
 
 This directory contains login related scripts. For additional information about the login scripts see the associated [README](./login/README.md) file.
 
-### [depricated](./depricated/)
+### [depricated](./deprecated/)
 
 This directory contains depricated login API client samples.

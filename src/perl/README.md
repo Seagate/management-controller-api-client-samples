@@ -1,5 +1,5 @@
 ## Usage of scripts in this repository
 
-### [depricated](./depricated/)
+### [depricated](./deprecated/)
 
 This directory contains depricated login API client samples.

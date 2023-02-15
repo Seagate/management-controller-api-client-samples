@@ -18,12 +18,12 @@ The purpose of this repository is to keep the api client samples, tools, and oth
 ├── README.md
 └── src
     ├── perl
-    │   ├── depricated
+    │   ├── deprecated
     │   │   └── APIAccessBase64SHA256.pl
     │   └── README.md
     └── py
         ├── const.py
-        ├── depricated
+        ├── deprecated
         │   ├── APIAccessBase64.py
         │   ├── APIAccessBase64SHA256.py
         │   ├── APIAccessSHA256.py
@@ -47,12 +47,12 @@ Below you can find the list of all API client samples which are very useful for 
 
 #### [Python](./src/py/README.md)
 
-- [Depricated](./src/py/depricated/)
+- [Deprecated](./src/py/deprecated/)
 - [Login](./src/py/login/README.md)
 
 #### [Perl](./src/perl/README.md)
 
-- [Depricated](./src/perl/depricated/)
+- [Deprecated](./src/perl/deprecated/)
 
 ## License
 

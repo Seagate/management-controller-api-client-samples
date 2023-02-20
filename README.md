@@ -1,12 +1,17 @@
-# API Client Samples
+# Management Controller API Client Samples
 
-The purpose of this repository is to keep the api client samples, tools, and other configuration used for Storage Area Network(SAN). This project is licensed under Apache License 2.0.
+The purpose of this repository is to provide the API client samples, tools, and other configuration used for Management Controller.
 
 **Disclaimer: "Quality matters not quantity."**
 
 ## Includes
 
 - API Client Samples
+
+## Supported Products
+
+- [CORVAULT](https://www.seagate.com/products/storage/data-storage-systems/corvault/)
+- [Exos X](https://www.seagate.com/products/enterprise-drives/exos-x/)
 
 ## Repo Structure
 
@@ -19,31 +24,21 @@ The purpose of this repository is to keep the api client samples, tools, and oth
 └── src
     ├── perl
     │   ├── deprecated
-    │   │   └── APIAccessBase64SHA256.pl
     │   └── README.md
     └── py
         ├── const.py
         ├── deprecated
-        │   ├── APIAccessBase64.py
-        │   ├── APIAccessBase64SHA256.py
-        │   ├── APIAccessSHA256.py
-        │   ├── RESTAccessBase64.py
-        │   ├── RESTAccessBase64SHA256.py
-        │   └── RESTAccessSHA256.py
         ├── login
-        │   ├── loginFactory.py
-        │   ├── login.py
-        │   └── README.md
         └── README.md
 ```
 
-## [API Samples](./src/)
+## [API Client Samples](./src/)
 
-Here our community is providing the API client samples for Storage Area Network(SAN).
+Here our community is providing the API client samples to interact with Management Controller.
 
 ### List of samples in this repository:
 
-Below you can find the list of all API client samples which are very useful for the developers, so dive in:
+Below you can find the list of all API client samples which are very useful for interacting with Management Controller, so dive in:
 
 #### [Python](./src/py/README.md)
 
@@ -56,8 +51,8 @@ Below you can find the list of all API client samples which are very useful for 
 
 ## License
 
-These scripts are offered under the Apache 2 license.
+This project is licensed under Apache License 2.0.
 
 ## Source Code
 
-The latest developer version is available in a GitHub repository: https://github.com/Seagate/api-client-samples
+The latest developer version is available in a GitHub repository: https://github.com/Seagate/management-controller-api-client-samples

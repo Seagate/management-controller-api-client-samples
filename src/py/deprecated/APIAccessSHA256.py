@@ -26,7 +26,7 @@ import ssl
 
 ip = sys.argv[1]
 
-userPass = bytes('manage_Testit123!', "utf-8")
+userPass = bytes('<password>', "utf-8")
 m = hashlib.sha256()
 m.update(userPass)
 encoded = m.hexdigest()

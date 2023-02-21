@@ -28,9 +28,9 @@ use IO::Socket::SSL qw( SSL_VERIFY_NONE );
 use Digest::SHA qw(sha256_hex);
 use constant use_basic_auth => 1;
 
-my $user = "manage";
-my $password = "Testit123!";
-my $ip = "10.235.209.45";
+my $user = "<username>";
+my $password = "<password>";
+my $ip = "127.0.0.0";
 my $protocol = "https";
 
 # Create a user agent for sending requests

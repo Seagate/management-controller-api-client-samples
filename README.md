@@ -2,7 +2,7 @@
 
 The purpose of this repository is to provide the API client samples, tools, and other configuration used for Management Controller.
 
-**Disclaimer: "Quality matters not quantity."**
+**Note: "Quality matters not quantity."**
 
 ## Includes
 

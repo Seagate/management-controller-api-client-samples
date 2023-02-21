@@ -24,8 +24,8 @@ import urllib.request
 import sys
 import ssl
 
-username = 'manage'
-password = 'Testit123!'
+username = '<username>'
+password = '<password>'
 
 if sys.argv[1]:
     ip = sys.argv[1]

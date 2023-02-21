@@ -63,7 +63,11 @@ It consumes these classes
 5. class RESTSHA256Login - A class to perform login operation using SHA256 encoding for REST
 6. class RESTBasicAuthSHA256Login - A class to perform login operation using Base64+SHA256 encoding for REST
 
-<b> DISCLAIMER :</b> <i>"REST endpoints are despricated. For best performance use API" </i>
+<b> DISCLAIMER :</b>
+```
+1. REST endpoints are deprecated. For best performance use API
+2. Only Basic Auth should be used, as the SHA256 and MD5 examples are provided in case the user requires compatibility with older firmware that doesn’t support Basic Auth. This is because the MD5/SHA256 methods place credentials in the URL, which is considered a security hazard because URLs are often written out to log files, and the checksum is equivalent to a clear text password.
+```
 
 - Usage
 
